@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundGuard - AI Sound Detection</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Optional for icons -->
+</head>
+
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1><span class="logo-icon">🎧</span> SoundGuard AI</h1>
+            <p class="subtitle">Advanced Audio Event Detection & Safety Analysis</p>
+        </header>
+
+        <main>
+            <div class="card glass-panel">
+                <div class="input-section">
+
+                    <!-- Tabs -->
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab('upload')">Upload Audio</button>
+                        <button class="tab-btn" onclick="switchTab('record')">Record Audio</button>
+                    </div>
+
+                    <!-- Upload Section -->
+                    <div id="upload-tab" class="tab-content active">
+                        <div class="file-drop-area" id="drop-area">
+                            <span class="choose-file-button">Choose File</span>
+                            <span class="file-message">or drag and drop .wav/.mp3 here</span>
+                            <input class="file-input" type="file" id="fileInput" accept=".wav, .mp3, .ogg">
+                        </div>
+                    </div>
+
+                    <!-- Record Section -->
+                    <div id="record-tab" class="tab-content">
+                        <div class="record-controls">
+                            <button id="recordBtn" class="record-btn">
+                                <span class="mic-icon">🎤</span> Start Recording
+                            </button>
+                            <span id="recordingStatus">Ready to record</span>
+                            <div class="visualizer" id="visualizer">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="analyzeBtn" class="action-btn glow-effect" disabled>Analyze Sound</button>
+                </div>
+            </div>
+
+            <!-- Result Section (Hidden by default) -->
+            <div id="resultSection" class="result-section hidden">
+                <div class="card glass-panel result-card">
+                    <h2>Prediction Result</h2>
+
+                    <div class="audio-player-container">
+                        <canvas id="frequencyCanvas"></canvas>
+                        <audio id="audioPlayer" controls></audio>
+                    </div>
+
+                    <div class="prediction-details">
+                        <div class="detail-item">
+                            <span class="label">Detected Sound:</span>
+                            <span id="soundClass" class="value">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Danger Level:</span>
+                            <span id="dangerLevel" class="value badge">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Harmful to Hearing:</span>
+                            <span id="safetyLevel" class="value badge">--</span>
+                        </div>
+                    </div>
+
+                    <div class="scene-description-box" id="sceneBox">
+                        <h3><span class="icon">🔍</span> Scene Analysis</h3>
+                        <p id="sceneDescription">Analyzing scene context...</p>
+                    </div>
+
+                    <div class="suggestion-box" id="suggestionBox">
+                        <span class="suggestion-icon">💡</span>
+                        <p id="suggestionText">Analysis pending...</p>
+                    </div>
+
+                    <button class="reset-btn" onclick="resetApp()">Analyze Another</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 SoundGuard AI Project</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
